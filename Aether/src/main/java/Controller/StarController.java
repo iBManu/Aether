@@ -29,6 +29,7 @@ public class StarController {
         w.CanvasContainer.setLayout(new GridLayout());
         w.CanvasContainer.add(cv);
         
-        cv.drawStars(sg.starGenerator(10000));
+        cv.drawStars(sg.starGenerator());
+        //cv.drawPaths(sg.pathGenerator());
     }
 }

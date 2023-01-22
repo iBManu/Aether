@@ -15,22 +15,45 @@ import java.util.Random;
 public class StarGen {
     
     private ArrayList<Star> Stars;
+    private ArrayList<Path> Paths;
     
     public StarGen()
     {
         
     }
     
-    public ArrayList<Star> starGenerator(int starNum)
+    public ArrayList<Star> starGenerator()
     {
         Random r = new Random(System.currentTimeMillis());
         Stars = new ArrayList<>();
         
-        for(int i = 0; i < starNum; i++)
+        int x, y;
+        
+        for(int i = 0; i < Variables.STAR_NUM; i++)
         {
-            Stars.add(new Star(r.nextInt(6) + 1, r.nextInt(899), r.nextInt(899), new Color(231, 246, 242)));
+            x = r.nextInt(899);
+            y = r.nextInt(899);
+            while(Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) > 450)
+            {
+                x = r.nextInt(899);
+                y = r.nextInt(899);
+            }
+            Stars.add(new Star(r.nextInt(Variables.MAX_STAR_SIZE) + Variables.MIN_STAR_SIZE, x, y, Variables.DEFAULT_STAR_COLOR));
         }
         
         return Stars;
+    }
+    
+    public ArrayList<Path> pathGenerator()
+    {
+        Random r = new Random(System.currentTimeMillis());
+        Paths = new ArrayList<>();
+        
+        for(int i = 0; i < Variables.PATH_NUM; i++)
+        {
+            Paths.add(new Path(Stars.get(r.nextInt(Variables.STAR_NUM)),Stars.get(r.nextInt(Variables.STAR_NUM))));
+        }
+        
+        return Paths;
     }
 }

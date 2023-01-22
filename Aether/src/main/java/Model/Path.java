@@ -9,5 +9,19 @@ package Model;
  * @author Manu
  */
 public class Path {
-    
+    private Star origin;
+    private Star end;
+
+    public Path(Star origin, Star end) {
+        this.origin = origin;
+        this.end = end;
+    }
+
+    public Star getOrigin() {
+        return origin;
+    }
+
+    public Star getEnd() {
+        return end;
+    } 
 }

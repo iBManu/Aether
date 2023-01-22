@@ -1,0 +1,6 @@
+--Generar constelaciones
+Variable numero constelaciones
+Cada constelacion será un conjunto de caminos
+Hacer que se haga con estrellas cercanas
+
+--Exportar como imagen
