@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Model;
+package Model.Bodies;
 
+import Model.Variables.StarType;
 import java.awt.Color;
 
 /**
@@ -15,12 +16,23 @@ public class Star {
     private int x;
     private int y;
     private Color color;
+    private StarType type;
+    private float mass;
+    private float temp;
+    private float metallicity;
+    private float magneticfield;
+    private float radius;
+    private float lightColor;
+    private float brightness;
 
-    public Star(int size, int x, int y, Color color) {
+    public Star(int size, int x, int y, Color color, StarType type, float mass, float temp) {
         this.size = size;
         this.x = x;
         this.y = y;
         this.color = color;
+        this.type = type;
+        this.mass = mass;
+        this.temp = temp;
     }
     
     public int getX() {
@@ -42,4 +54,21 @@ public class Star {
     public void setColor(Color color) {
         this.color = color;
     }  
+
+    public StarType getType() {
+        return type;
+    }
+
+    public float getMass() {
+        return mass;
+    }
+
+    public float getTemp() {
+        return temp;
+    }
+
+    @Override
+    public String toString() {
+        return "Star{" + "size=" + size + ", x=" + x + ", y=" + y + ", color=" + color + ", type=" + type + ", mass=" + mass + ", temp=" + temp + '}';
+    }
 }

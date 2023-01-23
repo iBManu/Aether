@@ -4,3 +4,10 @@ Cada constelacion será un conjunto de caminos
 Hacer que se haga con estrellas cercanas
 
 --Exportar como imagen
+
+--Sistema estelar
+Cada estrella tendra su masa, tipo de estrella(gigante roja, etc)
+Cada sistema estelar tendra una ovarias estrellas, planetas, sistemas de asteroides etc
+
+--Reclamar planetas o sistemas estelares
+Alguien puede registrar un planeta como suyo, se almacenará esto en una base de datos

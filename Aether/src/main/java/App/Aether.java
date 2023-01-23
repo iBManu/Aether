@@ -7,6 +7,11 @@ package App;
 
 import Controller.StarController;
 import View.Window;
+import com.formdev.flatlaf.FlatDarkLaf;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -16,6 +21,11 @@ public class Aether {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
+        try {
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(Aether.class.getName()).log(Level.SEVERE, null, ex);
+        }
         StarController s = new StarController();
     }
 }

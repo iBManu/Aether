@@ -4,6 +4,9 @@
  */
 package View;
 
+import javax.swing.JMenuBar;
+import javax.swing.UnsupportedLookAndFeelException;
+
 /**
  *
  * @author Manu
@@ -13,7 +16,7 @@ public class Window extends java.awt.Frame {
     /**
      * Creates new form Window
      */
-    public Window() {
+    public Window(){
         initComponents();
     }
 
@@ -27,6 +30,13 @@ public class Window extends java.awt.Frame {
 
         background = new javax.swing.JPanel();
         CanvasContainer = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        console = new javax.swing.JTextArea();
+        starCountSlider = new javax.swing.JSlider();
+        viewStarSystemButton = new javax.swing.JButton();
+        viewStarChartButton = new javax.swing.JButton();
+        editConstantsButtons = new javax.swing.JButton();
+        regenerateButton = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -34,8 +44,40 @@ public class Window extends java.awt.Frame {
             }
         });
 
-        background.setBackground(new java.awt.Color(255, 255, 255));
-        background.setPreferredSize(new java.awt.Dimension(950, 950));
+        background.setBackground(new java.awt.Color(51, 51, 51));
+        background.setPreferredSize(new java.awt.Dimension(1250, 925));
+
+        console.setColumns(20);
+        console.setRows(5);
+        jScrollPane1.setViewportView(console);
+
+        starCountSlider.setMajorTickSpacing(50);
+        starCountSlider.setMaximum(10000);
+        starCountSlider.setMinimum(10);
+        starCountSlider.setMinorTickSpacing(50);
+
+        viewStarSystemButton.setText("View Star System");
+
+        viewStarChartButton.setText("Back to Star Chart");
+        viewStarChartButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewStarChartButtonActionPerformed(evt);
+            }
+        });
+
+        editConstantsButtons.setText("Edit constants");
+        editConstantsButtons.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editConstantsButtonsActionPerformed(evt);
+            }
+        });
+
+        regenerateButton.setText("Regenerate");
+        regenerateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regenerateButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
@@ -44,14 +86,39 @@ public class Window extends java.awt.Frame {
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(CanvasContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(325, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                    .addComponent(starCountSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addComponent(viewStarChartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(viewStarSystemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
+                        .addComponent(regenerateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(editConstantsButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(CanvasContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(starCountSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(viewStarChartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(viewStarSystemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(432, 432, 432)
+                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(editConstantsButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(regenerateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(CanvasContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         add(background, java.awt.BorderLayout.CENTER);
@@ -65,6 +132,18 @@ public class Window extends java.awt.Frame {
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
         System.exit(0);
     }//GEN-LAST:event_exitForm
+
+    private void viewStarChartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewStarChartButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewStarChartButtonActionPerformed
+
+    private void editConstantsButtonsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editConstantsButtonsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editConstantsButtonsActionPerformed
+
+    private void regenerateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regenerateButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_regenerateButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -81,5 +160,12 @@ public class Window extends java.awt.Frame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel CanvasContainer;
     private javax.swing.JPanel background;
+    public javax.swing.JTextArea console;
+    public javax.swing.JButton editConstantsButtons;
+    private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JButton regenerateButton;
+    public javax.swing.JSlider starCountSlider;
+    public javax.swing.JButton viewStarChartButton;
+    public javax.swing.JButton viewStarSystemButton;
     // End of variables declaration//GEN-END:variables
 }

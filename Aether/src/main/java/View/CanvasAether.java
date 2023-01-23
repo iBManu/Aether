@@ -4,8 +4,9 @@
  */
 package View;
 
-import Model.Path;
-import Model.Star;
+import Model.Bodies.Constellation;
+import Model.Bodies.Path;
+import Model.Bodies.Star;
 import Model.Variables;
 import java.awt.BasicStroke;
 import java.awt.Canvas;
@@ -29,14 +30,14 @@ import javax.imageio.ImageIO;
 public class CanvasAether extends Canvas{
     
     private ArrayList<Star> Stars;
-    private ArrayList<Path> Paths;
+    private ArrayList<Constellation> Constellations;
+    private Window w;
     
-    public CanvasAether()
+    public CanvasAether(Window w)
     {
         this.setBackground(Color.black);
         this.setSize(900, 900);
-        
-        listener();
+        this.w = w;
     }
     
     public void update()
@@ -88,13 +89,17 @@ public class CanvasAether extends Canvas{
             }
         }
         
-        if(Paths != null)
+        if(Constellations != null)
         {
-            og.setColor(Variables.DEFAULT_STAR_COLOR);
-            for(int i = 0; i < Paths.size(); i++)
+            g2d.setStroke(new BasicStroke());
+            g2d.setColor(Variables.DEFAULT_STAR_COLOR);
+            for(int i = 0; i < Constellations.size(); i++)
             {
-                og.drawLine(Paths.get(i).getOrigin().getX(), Paths.get(i).getOrigin().getY(), Paths.get(i).getEnd().getX(), Paths.get(i).getEnd().getY());
-                System.out.println("xd?");
+                for(int j = 0; j < Constellations.get(i).getPaths().size(); j++)
+                {
+                    g2d.drawLine(Constellations.get(i).getPaths().get(j).getOrigin().getX(), Constellations.get(i).getPaths().get(j).getOrigin().getY(), Constellations.get(i).getPaths().get(j).getEnd().getX(), Constellations.get(i).getPaths().get(j).getEnd().getY());
+                }
+                
             }
         }
         
@@ -115,27 +120,18 @@ public class CanvasAether extends Canvas{
         update();
     }
     
-    public void drawPaths(ArrayList<Path> Paths)
+    public void drawConstellations(ArrayList<Constellation> Constellations)
     {
-        this.Paths = Paths;
+        this.Constellations = Constellations;
         update();
     }
     
-    public void listener() {
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                int x = e.getX();
-                int y = e.getY();
-                for (Star s : Stars) {
-                    if (s.getX() <= x && x <= s.getX() + s.getSize() && s.getY() <= y && y <= s.getY() + s.getSize()) {
-                        s.setColor(Color.red);
-                        repaint();
-                        break;
-                    }
-                }
-            }
-        });
-
-    }
+    /*public Star findStar(ArrayList<Star> stars, int x, int y) {
+        for(int i = 0; i < Stars.size(); i++)
+        {
+            if(Stars.get(i).getX() <= x && Stars.get(i).getY() <= y)
+                return Stars.get(i);
+        }
+        return null;
+    }*/
 }
