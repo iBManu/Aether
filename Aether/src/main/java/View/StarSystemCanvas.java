@@ -120,6 +120,7 @@ public class StarSystemCanvas extends Canvas{
         for(int i = 0; i < planets.size(); i++)
         {
             g2d.setColor(Variables.CONCENTRIC_CIRCLES_COLOR);
+            g2d.setStroke(dashed);
             g2d.drawOval(-1000 + i * divisionsize, -200, 1300, 1300);
             
             if(planets.get(i).getType() == Variables.PlanetType.ROCKY)
@@ -131,6 +132,12 @@ public class StarSystemCanvas extends Canvas{
             {
                 g2d.setColor(planets.get(i).getPlanetColor());
                 g2d.fillOval(250 + divisionsize * i, 400, 100, 100);
+                if(planets.get(i).isHasrings())
+                {
+                    g2d.setStroke(new BasicStroke(10f));
+                    g2d.drawOval(230 + divisionsize * i, 380, 140, 140);
+                }
+                    
             }
             else if(planets.get(i).getType() == Variables.PlanetType.DWARF)
             {

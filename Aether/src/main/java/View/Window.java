@@ -32,11 +32,12 @@ public class Window extends java.awt.Frame {
         CanvasContainer = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         console = new javax.swing.JTextArea();
-        starCountSlider = new javax.swing.JSlider();
         viewStarSystemButton = new javax.swing.JButton();
         viewStarChartButton = new javax.swing.JButton();
         editConstantsButtons = new javax.swing.JButton();
         regenerateButton = new javax.swing.JButton();
+        exportImgButton = new javax.swing.JButton();
+        chartEstadisticsButton = new javax.swing.JButton();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -50,11 +51,6 @@ public class Window extends java.awt.Frame {
         console.setColumns(20);
         console.setRows(5);
         jScrollPane1.setViewportView(console);
-
-        starCountSlider.setMajorTickSpacing(50);
-        starCountSlider.setMaximum(10000);
-        starCountSlider.setMinimum(10);
-        starCountSlider.setMinorTickSpacing(50);
 
         viewStarSystemButton.setText("View Star System");
 
@@ -79,6 +75,20 @@ public class Window extends java.awt.Frame {
             }
         });
 
+        exportImgButton.setText("Export Image");
+        exportImgButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportImgButtonActionPerformed(evt);
+            }
+        });
+
+        chartEstadisticsButton.setText("Get Chart Stadistics");
+        chartEstadisticsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chartEstadisticsButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
         backgroundLayout.setHorizontalGroup(
@@ -88,16 +98,19 @@ public class Window extends java.awt.Frame {
                 .addComponent(CanvasContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
-                    .addComponent(starCountSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addComponent(exportImgButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addComponent(chartEstadisticsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addComponent(regenerateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(editConstantsButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addComponent(viewStarChartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(viewStarSystemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
-                        .addComponent(regenerateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(editConstantsButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(viewStarSystemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         backgroundLayout.setVerticalGroup(
@@ -106,19 +119,21 @@ public class Window extends java.awt.Frame {
                 .addContainerGap()
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(backgroundLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(starCountSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(viewStarChartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(viewStarSystemButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(432, 432, 432)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(exportImgButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(chartEstadisticsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(editConstantsButtons, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(regenerateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(CanvasContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 900, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         add(background, java.awt.BorderLayout.CENTER);
@@ -145,6 +160,14 @@ public class Window extends java.awt.Frame {
         // TODO add your handling code here:
     }//GEN-LAST:event_regenerateButtonActionPerformed
 
+    private void exportImgButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportImgButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exportImgButtonActionPerformed
+
+    private void chartEstadisticsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chartEstadisticsButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chartEstadisticsButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -160,11 +183,12 @@ public class Window extends java.awt.Frame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel CanvasContainer;
     private javax.swing.JPanel background;
+    public javax.swing.JButton chartEstadisticsButton;
     public javax.swing.JTextArea console;
     public javax.swing.JButton editConstantsButtons;
+    public javax.swing.JButton exportImgButton;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JButton regenerateButton;
-    public javax.swing.JSlider starCountSlider;
     public javax.swing.JButton viewStarChartButton;
     public javax.swing.JButton viewStarSystemButton;
     // End of variables declaration//GEN-END:variables

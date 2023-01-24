@@ -7,7 +7,14 @@ Hacer que se haga con estrellas cercanas
 
 --Sistema estelar
 Cada estrella tendra su masa, tipo de estrella(gigante roja, etc)
-Cada sistema estelar tendra una ovarias estrellas, planetas, sistemas de asteroides etc
+Cada sistema estelar tendra una o varias estrellas, planetas, sistemas de asteroides etc
 
 --Reclamar planetas o sistemas estelares
 Alguien puede registrar un planeta como suyo, se almacenará esto en una base de datos
+
+--Generar ids unicos para universos, estrellas, planetas etc
+--Generar nombres aleatorios para cuerpos
+
+--Sistemas binarios
+
+--Pensar en que la simulacion sea una galaxia y no un cielo estrellado

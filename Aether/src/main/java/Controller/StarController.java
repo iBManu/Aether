@@ -20,14 +20,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.RenderedImage;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -41,7 +47,8 @@ public class StarController {
     private Generator sg;
     private StarSystem currentStarSystem;
     private ConstantsDialog cdl;
-    boolean inserted = true;
+    private boolean inserted = true;
+    private Star lastStar;
     
     public StarController()
     {
@@ -73,18 +80,40 @@ public class StarController {
                 for (Star s : sg.getStars()) {
                     if (s.getX() <= x && x <= s.getX() + s.getSize() && s.getY() <= y && y <= s.getY() + s.getSize()) {
                         
-                        StarSystem ss = sg.getSystem(s);
-        
-                        if(ss == null)
-                            ss = sg.generateStarSystem(s);
+                        if(lastStar != null && s != lastStar)
+                        {
+                            lastStar.setColor(Variables.DEFAULT_STAR_COLOR);
+                            lastStar.setSelected(false);
+                        }
+                            
+                            
+                        if(s.isSelected() == true)
+                        {
+                            w.CanvasContainer.remove(cv);
+                            w.CanvasContainer.add(scv);
+                            scv.setSystem(currentStarSystem);
+                            s.setSelected(false);
+                            s.setColor(Variables.DEFAULT_STAR_COLOR);
+                        }
+                        else
+                        {
+                            StarSystem ss = sg.getSystem(s);
+
+                            if(ss == null)
+                                ss = sg.generateStarSystem(s);
+
+                            currentStarSystem = ss;
+
+                            s.setColor(Color.red);
+                            System.out.println(s.toString());
+
+                            setConsoleStarInfo(s);
+                            cv.update();
+                            s.setSelected(true);
+                        }
                         
-                        currentStarSystem = ss;
+                        lastStar = s;
                         
-                        s.setColor(Color.red);
-                        System.out.println(s.toString());
-                        
-                        setConsoleStarInfo(s);
-                        cv.update();
                         break;
                     }
                 }
@@ -160,6 +189,28 @@ public class StarController {
             }
         });
         
+        w.exportImgButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {  
+                JFileChooser fileChooser = new JFileChooser();
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG Images", "png");
+                fileChooser.setFileFilter(filter);
+                int returnValue = fileChooser.showSaveDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    if (!selectedFile.getName().endsWith(".png")) {
+                        selectedFile = new File(selectedFile.getAbsolutePath() + ".png");
+                    }
+                    try {
+                        ImageIO.write((RenderedImage) cv.getImg(), "png", selectedFile);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+
+            }
+        });
+        
         /*Variables.STAR_NUM = w.starCountSlider.getValue();
         w.starCountSlider.addChangeListener(new ChangeListener() {
             @Override
@@ -174,7 +225,7 @@ public class StarController {
     public void setConsoleStarInfo(Star st)
     {
         w.console.setText("");
-        w.console.append("STAR");
+        w.console.append("STAR " + st.getStarName());
         w.console.append("\nStar type: " + st.getType());
         w.console.append("\nMass: " + st.getMass() + " solar masses");
         w.console.append("\nCoordinates: (" + st.getX() + "," + st.getY() + ")");
@@ -189,7 +240,7 @@ public class StarController {
             w.console.append("\n\n Type: " + pl.getType());
             w.console.append("\n Mass: " + pl.getMass() + " Earth masses");
             w.console.append("\n Radius: " + pl.getRadius() + " Earth radius");
-            w.console.append("\n Density: " + pl.getDensity() + " gm/m³");
+            w.console.append("\n Density: " + pl.getDensity() + " kg/m³");
             w.console.append("\n Gravity: " + pl.getGravity() + " Earth gravities");
             System.out.println(pl.toString());
         }

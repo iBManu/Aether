@@ -32,6 +32,7 @@ public class CanvasAether extends Canvas{
     private ArrayList<Star> Stars;
     private ArrayList<Constellation> Constellations;
     private Window w;
+    Image img;
     
     public CanvasAether(Window w)
     {
@@ -48,7 +49,7 @@ public class CanvasAether extends Canvas{
     @Override
     public void paint(Graphics g)
     {
-        Image img = createImage(this.getWidth(), this.getHeight());
+        img = createImage(this.getWidth(), this.getHeight());
         Graphics og = img.getGraphics();
         Graphics2D g2d = (Graphics2D) og.create();
         
@@ -105,13 +106,6 @@ public class CanvasAether extends Canvas{
         
         g2d.dispose();
         g.drawImage(img, 0, 0, null);
-        
-        try {
-            ImageIO.write((RenderedImage) img, "png", new File("Foto.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-}
-
     }
 
     public void drawStars(ArrayList<Star> Stars)
@@ -134,4 +128,8 @@ public class CanvasAether extends Canvas{
         }
         return null;
     }*/
+
+    public Image getImg() {
+        return img;
+    }
 }

@@ -24,8 +24,10 @@ public class Star {
     private float radius;
     private float lightColor;
     private float brightness;
+    private String starName;
+    private boolean selected;
 
-    public Star(int size, int x, int y, Color color, StarType type, float mass, float temp) {
+    public Star(int size, int x, int y, Color color, StarType type, float mass, float temp, String starName) {
         this.size = size;
         this.x = x;
         this.y = y;
@@ -33,6 +35,8 @@ public class Star {
         this.type = type;
         this.mass = mass;
         this.temp = temp;
+        this.starName = starName;
+        selected = false;
     }
     
     public int getX() {
@@ -65,6 +69,18 @@ public class Star {
 
     public float getTemp() {
         return temp;
+    }
+
+    public String getStarName() {
+        return starName;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     @Override

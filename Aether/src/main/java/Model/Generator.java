@@ -28,6 +28,10 @@ public class Generator {
     private ArrayList<StarSystem> StarSystems;
     private Random r;
     
+    private static final String CONSONANTS = "bcdfghjklmnpqrstvwxyz";
+    private static final String VOWELS = "aeiou";
+    private static final String NUMBERS = "0123456789";
+    
     public Generator()
     {
         r = new Random(Variables.SEED);
@@ -145,7 +149,7 @@ public class Generator {
             float mass = (float) (0.08 + (0.25 - 0.08) * r.nextFloat());
             float temp = (float) (2000 + (2800 - 2000)) * r.nextFloat();
             
-            return new Star(size, x, y ,Variables.DEFAULT_STAR_COLOR, type, mass, temp);
+            return new Star(size, x, y ,Variables.DEFAULT_STAR_COLOR, type, mass, temp, generateStarName());
         }
         else if(type == Variables.StarType.REDDWARF)
         {
@@ -153,7 +157,7 @@ public class Generator {
             float mass = (float) (0.08 + (0.5 - 0.08) * r.nextFloat());
             float temp = (float) (2500 + (4500 - 2500)) * r.nextFloat();
             
-            return new Star(size, x, y ,Variables.DEFAULT_STAR_COLOR, type, mass, temp);
+            return new Star(size, x, y ,Variables.DEFAULT_STAR_COLOR, type, mass, temp, generateStarName());
         }
         else if(type == Variables.StarType.WHITEDWARF)
         {
@@ -161,7 +165,7 @@ public class Generator {
             float mass = (float) (0.5 + (8 - 0.5) * r.nextFloat());
             float temp = (float) (4500 + (100000 - 4500)) * r.nextFloat();
             
-            return new Star(size, x, y ,Variables.DEFAULT_STAR_COLOR, type, mass, temp);
+            return new Star(size, x, y ,Variables.DEFAULT_STAR_COLOR, type, mass, temp, generateStarName());
         }
         else if(type == Variables.StarType.GIANT)
         {
@@ -169,7 +173,7 @@ public class Generator {
             float mass = (float) (1 + (20 - 1) * r.nextFloat());
             float temp = (float) (3000 + (60000 - 3000)) * r.nextFloat();
             
-            return new Star(size, x, y ,Variables.DEFAULT_STAR_COLOR, type, mass, temp);
+            return new Star(size, x, y ,Variables.DEFAULT_STAR_COLOR, type, mass, temp, generateStarName());
         }
         else if(type == Variables.StarType.SUPERGIANT)
         {
@@ -177,7 +181,7 @@ public class Generator {
             float mass = (float) (20 + (100 - 20) * r.nextFloat());
             float temp = (float) (3000 + (50000 - 3000)) * r.nextFloat();
             
-            return new Star(size, x, y ,Variables.DEFAULT_STAR_COLOR, type, mass, temp);
+            return new Star(size, x, y ,Variables.DEFAULT_STAR_COLOR, type, mass, temp, generateStarName());
         }
         else if(type == Variables.StarType.HYPERGIANT)
         {
@@ -185,7 +189,7 @@ public class Generator {
             float mass = (float) (100 + (150 - 100) * r.nextFloat());
             float temp = (float) (70000 + (100000 - 70000)) * r.nextFloat();
             
-            return new Star(size, x, y ,Variables.DEFAULT_STAR_COLOR, type, mass, temp);
+            return new Star(size, x, y ,Variables.DEFAULT_STAR_COLOR, type, mass, temp, generateStarName());
         }
         
         return null;
@@ -217,8 +221,8 @@ public class Generator {
                 
                 float density = 3f + (10f - 3f) * r.nextFloat();
                 float mass = 0.05f + (15 - 0.05f) * r.nextFloat();
-                float radius = (float) Math.cbrt((3 * mass) / (4 * Math.PI * density));
-                Planets.add(new Planet(mass, radius,Variables.PlanetType.ROCKY, planetColor, (float) ((Math.pow(6.67 * 10, -11) * mass) / Math.pow(radius, 2)), density));
+                float radius = (float) calculatePlanetRadius(mass, density);
+                Planets.add(new Planet(mass, radius,Variables.PlanetType.ROCKY, planetColor, (float) ((Math.pow(6.67 * 10, -11) * mass) / Math.pow(radius, 2)), density, false));
             }
             else if(percent > 33 && percent < 66)
             {
@@ -234,8 +238,13 @@ public class Generator {
                 
                 float density = 0.1f + (0.68f - 0.1f) * r.nextFloat();
                 float mass = 10 + (318 - 10) * r.nextFloat();
-                float radius = (float) Math.cbrt((3 * mass) / (4 * Math.PI * density));
-                Planets.add(new Planet(mass, radius,Variables.PlanetType.GASGIANT, planetColor, (float) ((Math.pow(6.67 * 10, -11) * mass) / Math.pow(radius, 2)), density));
+                float radius = (float) calculatePlanetRadius(mass, density);
+                
+                boolean hasrings = false;
+                /*if(r.nextInt(100) < 10) //Deberia ser 1%
+                    hasrings = true;*/
+                
+                Planets.add(new Planet(mass, radius,Variables.PlanetType.GASGIANT, planetColor, (float) ((Math.pow(6.67 * 10, -11) * mass) / Math.pow(radius, 2)), density, hasrings));
             }
             else
             {
@@ -251,13 +260,22 @@ public class Generator {
                 
                 float density = 1f + (2.1f - 1f) * r.nextFloat();
                 float mass = 0.000001f + (0.002f - 0.000001f) * r.nextFloat();
-                float radius = (float) Math.cbrt((3 * mass) / (4 * Math.PI * density));
-                Planets.add(new Planet(mass, radius,Variables.PlanetType.DWARF, planetColor, (float) ((Math.pow(6.67 * 10, -11) * mass) / Math.pow(radius, 2)), density));
+                float radius = (float) calculatePlanetRadius(mass, density);
+                Planets.add(new Planet(mass, radius,Variables.PlanetType.DWARF, planetColor, (float) ((Math.pow(6.67 * 10, -11) * mass) / Math.pow(radius, 2)), density, false));
             }
         }
         
         return Planets;
     }
+    
+        public double calculatePlanetRadius(double massInEarthMasses, double density) {
+            double radius = Math.cbrt((3 * massInEarthMasses) / (4 * Math.PI * density));
+            
+        return radius;
+    }
+
+
+
     
     public StarSystem generateStarSystem(Star s)
     {
@@ -271,6 +289,60 @@ public class Generator {
         return null;  
     }
     
+    public String generateStarName() {
+
+        int nameType = r.nextInt(3) + 1;
+
+        switch (nameType) {
+            case 1:
+                // Generar nombre del tipo consonantevocalconsonante-consonante-numeronumeronumero
+                StringBuilder sb = new StringBuilder();
+                sb.append(getRandomChar(CONSONANTS));
+                sb.append(getRandomChar(VOWELS));
+                sb.append(getRandomChar(CONSONANTS));
+                sb.append("-");
+                sb.append(getRandomChar(CONSONANTS));
+                sb.append("-");
+                sb.append(getRandomChar(NUMBERS));
+                sb.append(getRandomChar(NUMBERS));
+                sb.append(getRandomChar(NUMBERS));
+                return sb.toString();
+            case 2:
+                // Generar nombre del tipo letraconsonante consonantevocalconsonant
+                StringBuilder sb2 = new StringBuilder();
+                sb2.append(getRandomChar(VOWELS));
+                sb2.append(getRandomChar(CONSONANTS));
+                sb2.append(getRandomChar(VOWELS));
+                sb2.append(getRandomChar(CONSONANTS));
+                sb2.append(getRandomChar(CONSONANTS));
+                sb2.append(getRandomChar(VOWELS));
+                return sb2.toString();
+            case 3:
+                // Generar nombre del tipo numerovocal-consonanteconsonantevocalconsonantevocalconsonante
+                StringBuilder sb3 = new StringBuilder();
+                sb3.append(getRandomChar(NUMBERS));
+                sb3.append(getRandomChar(VOWELS));
+                sb3.append("-");
+                sb3.append(getRandomChar(CONSONANTS));
+                sb3.append(getRandomChar(CONSONANTS));
+                sb3.append(getRandomChar(VOWELS));
+                sb3.append(getRandomChar(CONSONANTS));
+                sb3.append(getRandomChar(VOWELS));
+                sb3.append(getRandomChar(CONSONANTS));
+                sb3.append(getRandomChar(VOWELS));
+                sb3.append(getRandomChar(CONSONANTS));
+                return sb3.toString();
+            default:
+                return "";
+        }
+    }
+
+    private char getRandomChar(String characters) {
+        int index = r.nextInt(characters.length());
+        return characters.charAt(index);
+    }
+                
+                
     public StarSystem getSystem(Star st)
     {
         if(StarSystems.size() == 0)

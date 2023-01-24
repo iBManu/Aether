@@ -18,14 +18,16 @@ public class Planet {
     private Color planetColor;
     private float gravity;
     private float density;
+    private boolean hasrings;
 
-    public Planet(float mass, float radius, PlanetType type, Color planetColor, float gravity, float density) {
+    public Planet(float mass, float radius, PlanetType type, Color planetColor, float gravity, float density, boolean hasrings) {
         this.mass = mass;
         this.radius = radius;
         this.type = type;
         this.planetColor = planetColor;
         this.gravity = gravity;
         this.density = density;
+        this.hasrings = hasrings;
     }
 
     public float getMass() {
@@ -50,5 +52,9 @@ public class Planet {
 
     public float getDensity() {
         return density;
+    }
+
+    public boolean isHasrings() {
+        return hasrings;
     }
 }
