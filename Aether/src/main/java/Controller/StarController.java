@@ -11,6 +11,7 @@ import Model.Bodies.StarSystem;
 import Model.Variables;
 import View.CanvasAether;
 import View.ConstantsDialog;
+import View.GalaxyCanvas;
 import View.StarSystemCanvas;
 import View.Window;
 import java.awt.Color;
@@ -44,6 +45,7 @@ public class StarController {
     private Window w;
     private CanvasAether cv;
     private StarSystemCanvas scv;
+    private GalaxyCanvas gcv;
     private Generator sg;
     private StarSystem currentStarSystem;
     private ConstantsDialog cdl;
@@ -59,14 +61,15 @@ public class StarController {
         
         cv = new CanvasAether(w);
         scv = new StarSystemCanvas();
+        gcv = new GalaxyCanvas();
         cdl = new ConstantsDialog();
         
         sg = new Generator();
         
         w.CanvasContainer.setLayout(new GridLayout());
-        w.CanvasContainer.add(cv);
+        w.CanvasContainer.add(gcv);
         
-        gen();
+        //gen();
         
         listener();
     }
@@ -77,9 +80,10 @@ public class StarController {
             public void mousePressed(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
+                boolean found = false;
                 for (Star s : sg.getStars()) {
                     if (s.getX() <= x && x <= s.getX() + s.getSize() && s.getY() <= y && y <= s.getY() + s.getSize()) {
-                        
+                        found = true;
                         if(lastStar != null && s != lastStar)
                         {
                             lastStar.setColor(Variables.DEFAULT_STAR_COLOR);
@@ -115,11 +119,30 @@ public class StarController {
                         lastStar = s;
                         
                         break;
-                    }
+                    }        
                 }
+                if(found == false)
+                    {
+                        lastStar.setSelected(false);
+                        lastStar.setColor(Variables.DEFAULT_STAR_COLOR);
+                        lastStar = null;
+                        w.console.setText("");
+                        cv.update();
+                    }
             }
         });
 
+        scv.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if(e.getButton() == MouseEvent.BUTTON3)
+                {
+                    w.CanvasContainer.remove(scv);
+                    w.CanvasContainer.add(cv);
+                }
+            }
+        });
+        
         w.viewStarSystemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -185,7 +208,11 @@ public class StarController {
         w.regenerateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gen();     
+               /* w.CanvasContainer.remove(gcv);
+                Variables.setSEED((int) System.currentTimeMillis());
+                gcv = new GalaxyCanvas();
+                w.CanvasContainer.add(gcv);*/
+               gcv.update();
             }
         });
         
@@ -210,6 +237,18 @@ public class StarController {
 
             }
         });
+    
+        gcv.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+                int column = x / 180;
+                int row = y / 180;
+                gcv.selectGridPiece(column, row);
+            }
+});
+
         
         /*Variables.STAR_NUM = w.starCountSlider.getValue();
         w.starCountSlider.addChangeListener(new ChangeListener() {

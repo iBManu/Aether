@@ -17,4 +17,19 @@ Alguien puede registrar un planeta como suyo, se almacenará esto en una base de
 
 --Sistemas binarios
 
---Pensar en que la simulacion sea una galaxia y no un cielo estrellado
+--Pensar en que la simulacion sea una galaxia y no un cielo estrellado, la galaxia estaria dividida en sectores, cada uno seria un cielo estrellado, cada cielo tendra caracteristicas unicas dependiendo de en que zona de la galaxia se encuentre
+
+--Color de las estrellas depende de la temperatura
+
+--Navegacion o viaje directo, por ejemplo, escribir SEMILLA+SECTOR+COORDENADAS y que nos lleve a un sitio concreto
+
+--Añadir conjuntos paletas de colores para galaxias
+
+--Hacer que en vez de una galaxia, se genere un universo, y aparezcas en una galaxia aleatoria pero siempre del mismo universo, asi podrias encontrar estrellas o galaxias de otros
+
+--Hacer que del color de la galaxia dependan el porcentaje de probabilidad del color e las estrellas, por ejemplo, en una galaxia azul habra muchas azules y blancas, en una rosa, muchas rojas y blancas.
+
+-Agregar agujeros negros y quasares, también estrellas de neutrones y magnetares, quizas novas etc.
+
+--ERRORES
+Al poner la semilla yo en el fichero si se genera siempre lo mismo, si la pongo con el programa no, algun problema hay ahi

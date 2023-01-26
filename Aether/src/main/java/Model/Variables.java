@@ -24,7 +24,7 @@ public class Variables {
     public static int CANVAS_WIDTH = 900;
     public static Color DEFAULT_STAR_COLOR = Color.gray; //new Color(231, 246, 242);
     public static Color CONCENTRIC_CIRCLES_COLOR = new Color(44, 51, 51);
-    public static int SEED = 115710;
+    public static int SEED = (int) System.currentTimeMillis();//115710;
     public static enum StarType {
         HYPERGIANT, 
         SUPERGIANT, 
@@ -38,6 +38,12 @@ public class Variables {
         ROCKY, 
         GASGIANT, 
         DWARF  
+    }
+    
+    public static enum GalaxyType {
+        ELLIPTICAL, 
+        SPIRAL, 
+        IRREGULAR  
     }
 
     public static void setMAX_PATHS(int MAX_PATHS) {
