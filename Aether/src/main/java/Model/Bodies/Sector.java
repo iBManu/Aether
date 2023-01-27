@@ -25,4 +25,12 @@ public class Sector {
     {
         starSystems.add(starsystem);
     }
+
+    public ArrayList<Star> getStars() {
+        return stars;
+    }
+
+    public ArrayList<Constellation> getConstellations() {
+        return constellations;
+    }
 }

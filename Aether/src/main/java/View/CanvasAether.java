@@ -50,6 +50,7 @@ public class CanvasAether extends Canvas{
     public void paint(Graphics g)
     {
         img = createImage(this.getWidth(), this.getHeight());
+        System.out.println("w: " + this.getWidth() + " , h: " + this.getHeight());
         Graphics og = img.getGraphics();
         Graphics2D g2d = (Graphics2D) og.create();
         

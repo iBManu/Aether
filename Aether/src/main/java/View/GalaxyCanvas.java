@@ -5,6 +5,7 @@
 package View;
 
 import Model.Bodies.Galaxy;
+import Model.Bodies.Galaxy.gstar;
 import Model.ColorPalettes;
 import Model.Variables;
 import java.awt.BasicStroke;
@@ -29,12 +30,12 @@ public class GalaxyCanvas extends Canvas{
     ColorPalettes c;
     int selectedColumn = 5, selectedRow = 5;
     
-    public GalaxyCanvas()
+    public GalaxyCanvas(Galaxy galaxy)
     {
         c = new ColorPalettes();
         r = new Random(Variables.SEED);
         
-        galaxy = new Galaxy(Variables.GalaxyType.SPIRAL);
+        this.galaxy = galaxy;
         
         this.setBackground(Color.black);
         this.setSize(Variables.CANVAS_WIDTH, Variables.CANVAS_HEIGHT);
@@ -66,255 +67,56 @@ public class GalaxyCanvas extends Canvas{
             g2d.drawLine(0, (180 * i + 180), 899, (180 * i + 180));
         }
         
-        int count = 0;
-        /*while(count < 300) //CENTER
+        /*if(galaxy.getType() == Variables.GalaxyType.SPIRAL)
+            drawSpiral(g2d, galaxy.getBranches());
+        else if(galaxy.getType() == Variables.GalaxyType.LENTICULAR)
+            drawLenticular(g2d);*/
+        
+        ArrayList<gstar> gstars = galaxy.getgstars();
+        
+        for(int i = 0; i < gstars.size(); i++)
         {
-            int x = r.nextInt(900);
-            int y = r.nextInt(900);
-            
-            g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
-            if(Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) < 150)
-            {
-                int size = r.nextInt(3) + 1;
-                g2d.fillOval(x, y, size, size);
-                count++;
-            }
-            
-        }*/
-        
-        drawSpiral(g2d);
-        //drawLenticular(g2d);
-        
+            g2d.setColor(gstars.get(i).getC());
+            g2d.fillOval(gstars.get(i).getX(), gstars.get(i).getY(), gstars.get(i).getSize(), gstars.get(i).getSize());
+        }
 
-            g2d.setColor(new Color(134,255,100));
-            g.fillRect(selectedColumn * 180, selectedRow * 180, 180, 180);
+        g2d.setColor(new Color(134,255,100, 50));
+        g2d.fillRect(selectedColumn * 180, selectedRow * 180, 180, 180);
         
         g2d.dispose();
         g.drawImage(img, 0, 0, null);
     }
     
-    void drawSpiral(Graphics2D g2d) {
+    void drawSpiral(Graphics2D g2d, int branches) {
 
-        int n = r.nextInt(4);
-        int xc = 450;
-        int yc = 450;
         
-        if(n == 0)
-        {
-            int branchsize = r.nextInt(40) + 40;
-            int radius = 0;
-            galaxy.setGalaxyColorPalette(c.returnRandColorPalette());
-            for (int i = 1; i <= 450; i++) {
-                double angle = i * Math.PI / 200;
-                int x1 = (int) (xc - radius * Math.cos(angle) + r.nextInt(branchsize) - 10);
-                int y1 = (int) (yc + radius * Math.sin(angle) + r.nextInt(branchsize) - 10);
-                g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
-                int size = r.nextInt(5) + 1;
-                g2d.fillOval(x1, y1, size, size);
-                radius++;
-            }
-
-            radius = 0;
-            galaxy.setGalaxyColorPalette(c.returnRandColorPalette());
-            for (int i = 1; i <= 450; i++) {
-                double angle = -i * Math.PI / 200;
-                int x1 = (int) (xc + radius * Math.cos(angle) + r.nextInt(branchsize) - 10);
-                int y1 = (int) (yc + radius * Math.sin(angle) + r.nextInt(branchsize) - 10);
-                g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
-                int size = r.nextInt(5) + 1;
-                g2d.fillOval(x1, y1, size, size);
-                radius++;
-            }
-        }
-        else if(n == 1)
-        {
-            int branchsize = r.nextInt(40) + 20;
-            int radius = 0;
-            for (int j = 0; j < 3; j++) {
-                galaxy.setGalaxyColorPalette(c.returnRandColorPalette());
-                for (int i = 1; i <= 450; i++) {
-                    double angle = (i * Math.PI / 200) + (j * 2 * Math.PI / 3);
-                    int x1 = (int) (xc + radius * Math.cos(angle) + r.nextInt(branchsize) - 10);
-                    int y1 = (int) (yc + radius * Math.sin(angle) + r.nextInt(branchsize) - 10);
-                    g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
-                    int size = r.nextInt(5) + 1;
-                    g2d.fillOval(x1, y1, size, size);
-                    radius++;
-                }
-                radius = 0;
-            }
-
-        }
-        else if(n == 2)
-        {
-            int branchsize = r.nextInt(40) + 20;
-            int radius = 0;
-            for (int j = 0; j < 4; j++) {
-                galaxy.setGalaxyColorPalette(c.returnRandColorPalette());
-                for (int i = 1; i <= 450; i++) {
-                    double angle = (i * Math.PI / 200) + (j * 2 * Math.PI / 4);
-                    int x1 = (int) (xc + radius * Math.cos(angle) + r.nextInt(branchsize) - 10);
-                    int y1 = (int) (yc + radius * Math.sin(angle) + r.nextInt(branchsize) - 10);
-                    g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
-                    int size = r.nextInt(5) + 1;
-                    g2d.fillOval(x1, y1, size, size);
-                    radius++;
-                }
-                radius = 0;
-            }
-
-        }
-        else if(n == 3)
-        {
-            int branchsize = r.nextInt(40) + 20;
-            int radius = 0;
-            for (int j = 0; j < 5; j++) {
-                galaxy.setGalaxyColorPalette(c.returnRandColorPalette());
-                for (int i = 1; i <= 450; i++) {
-                    double angle = (i * Math.PI / 200) + (j * 2 * Math.PI / 5);
-                    int x1 = (int) (xc + radius * Math.cos(angle) + r.nextInt(branchsize) - 10);
-                    int y1 = (int) (yc + radius * Math.sin(angle) + r.nextInt(branchsize) - 10);
-                    g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
-                    int size = r.nextInt(5) + 1;
-                    g2d.fillOval(x1, y1, size, size);
-                    radius++;
-                }
-                radius = 0;
-            }
-
-        }
-        
-        int count = 0;
-        while(count < 500) //BORDER
-        {
-            int x = r.nextInt(900);
-            int y = r.nextInt(900);
-            
-            g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
-            if(Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) < 300)
-            {
-                int size = r.nextInt(3) + 1;
-                g2d.fillOval(x, y, size, size);
-                count++;
-            }
-            
-        }
-        
-        count = 0;
-        while(count < 10000) //DUST
-        {
-            int x = r.nextInt(900);
-            int y = r.nextInt(900);
-            
-            Color c = galaxy.getGalaxyColorPalette().get(r.nextInt(4));
-            Color col = new Color(c.getRed(),c.getGreen(),c.getBlue(),50);
-            g2d.setColor(col);
-            if(Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) < 450)
-            {
-                g2d.fillOval(x, y, 2, 2);
-                count++;
-            }
-            
-        }
         
     }
     
     void drawLenticular(Graphics2D g2d)
     {
-        int count = 0;
-        while(count < 1000)
-        {
-            int x = r.nextInt(900);
-            int y = r.nextInt(900);
-            
-            g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
-            if(Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) >= 375 && Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) <= 425)
-            {
-                g2d.fillOval(x, y, 2, 2);
-                count++;
-            }
-            
-        }
         
-        if(r.nextInt() < 10)
-        {
-        galaxy.setGalaxyColorPalette(c.returnRandColorPalette());
-        count = 0;
-        while(count < 2000)
-        {
-            int x = r.nextInt(900);
-            int y = r.nextInt(900);
-            
-            g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
-            if(Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) <= 425)
-            {
-                g2d.fillOval(x, y, 2, 2);
-                count++;
-            }
-            
-        }
-        }
-        
-        
-        if(r.nextInt() < 20)
-        {
-            galaxy.setGalaxyColorPalette(c.returnRandColorPalette());
-            count = 0;
-            while(count < 750)
-            {
-                int x = r.nextInt(900);
-                int y = r.nextInt(900);
-    
-                
-                g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
-                if(Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) <= 200)
-                {
-                    g2d.fillOval(x, y, 2, 2);
-                    count++;
-                }
-
-            }
-        }
-        
-        
-        galaxy.setGalaxyColorPalette(c.returnRandColorPalette());
-        count = 0;
-        while(count < 250)
-        {
-            int x = r.nextInt(900);
-            int y = r.nextInt(900);
-            
-            g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
-            if(Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) <= 50)
-            {
-                g2d.fillOval(x, y, 2, 2);
-                count++;
-            }
-            
-        }
-        
-        int branchsize = r.nextInt(40) + 20;
-            int radius = 0;
-            for (int j = 0; j < 3; j++) {
-                for (int i = 1; i <= 450; i++) {
-                    double angle = (i * Math.PI / 200) + (j * 2 * Math.PI / 3);
-                    int x1 = (int) (450 + radius * Math.cos(angle) + r.nextInt(branchsize) - 10);
-                    int y1 = (int) (450 + radius * Math.sin(angle) + r.nextInt(branchsize) - 10);
-                    g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
-                    int size = r.nextInt(5) + 1;
-                    g2d.fillOval(x1, y1, size, size);
-                    radius++;
-                }
-                radius = 0;
-            }
     }
     
     public void selectGridPiece(int x, int y)
     {
         this.selectedColumn = x;
         this.selectedRow = y;
-        
-        update();
     }
-    
+
+    public Image getImg() {
+        return img;
+    }
+
+    public void setGalaxy(Galaxy galaxy) {
+        this.galaxy = galaxy;
+    }
+
+    public int getSelectedColumn() {
+        return selectedColumn;
+    }
+
+    public int getSelectedRow() {
+        return selectedRow;
+    }
 }

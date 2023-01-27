@@ -5,9 +5,12 @@
 package Model;
 
 import Model.Bodies.Constellation;
+import Model.Bodies.Galaxy;
+import Model.Bodies.Galaxy.gstar;
 import Model.Bodies.Planet;
 import Model.Bodies.Star;
 import Model.Bodies.Path;
+import Model.Bodies.Sector;
 import Model.Variables.StarType;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -59,7 +62,7 @@ public class Generator {
             int percent = r.nextInt(100);
             StarType type;
             
-            System.out.println("porcentage: " + percent);
+            //System.out.println("porcentage: " + percent);
             
             if(percent < 15)
             {
@@ -337,6 +340,247 @@ public class Generator {
         }
     }
 
+    public Galaxy generateGalaxy()
+    {
+        Random rg = new Random(Variables.GID);
+        ColorPalettes c = new ColorPalettes();
+        Galaxy g;
+        int n = rg.nextInt(2);
+        
+        System.out.println("GID: " + Variables.GID);
+        
+        if(n == 0) //SPIRAL
+        {
+            int branches = rg.nextInt(5) + 2;
+            /*if(branches == 2)
+                return new Galaxy(Variables.GalaxyType.SPIRAL,c.returnRandColorPalette(),branches, r.nextInt(40) + 40);
+            else
+                return new Galaxy(Variables.GalaxyType.SPIRAL,c.returnRandColorPalette(),branches, r.nextInt(40) + 20);*/
+            
+            ArrayList<Color> col = c.returnRandColorPalette(); 
+            
+            int xc = 450;
+            int yc = 450;
+            if(branches == 2)
+            {
+                int radius = 0;
+                int branchsize = rg.nextInt(40) + 40;
+                g = new Galaxy(Variables.GalaxyType.SPIRAL, col, branches, branchsize);
+                //galaxy.setGalaxyColorPalette(c.returnRandColorPalette());
+                for (int i = 1; i <= 450; i++) {
+                    double angle = i * Math.PI / 200;
+                    int x1 = (int) (xc - radius * Math.cos(angle) + rg.nextInt(branchsize) - 10);
+                    int y1 = (int) (yc + radius * Math.sin(angle) + rg.nextInt(branchsize) - 10);
+                    //g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
+                    int size = rg.nextInt(5) + 1;
+                    g.addgstar(new Galaxy.gstar(x1, y1, col.get(rg.nextInt(4)), size));
+                    radius++;
+                }
+
+                radius = 0;
+                if(rg.nextInt() < 20)
+                    col = c.returnRandColorPalette();
+                    
+                for (int i = 1; i <= 450; i++) {
+                    double angle = -i * Math.PI / 200;
+                    int x1 = (int) (xc + radius * Math.cos(angle) + rg.nextInt(branchsize) - 10);
+                    int y1 = (int) (yc + radius * Math.sin(angle) + rg.nextInt(branchsize) - 10);
+                    //g2d.setColor(galaxy.getGalaxyColorPalette().get(rg.nextInt(4)));
+                    int size = rg.nextInt(5) + 1;
+                    //g2d.fillOval(x1, y1, size, size);
+                    g.addgstar(new Galaxy.gstar(x1, y1, col.get(rg.nextInt(4)), size));  
+                    radius++;
+                }
+            }
+            else if(branches == 3)
+            {
+                int branchsize = rg.nextInt(40) + 20;
+                int radius = 0;
+                g = new Galaxy(Variables.GalaxyType.SPIRAL, col, branches, branchsize);
+                for (int j = 0; j < 3; j++) {
+                    //galaxy.setGalaxyColorPalette(c.returnRandColorPalette());
+                    if(rg.nextInt() < 20)
+                        col = c.returnRandColorPalette();
+                    for (int i = 1; i <= 450; i++) {
+                        double angle = (i * Math.PI / 200) + (j * 2 * Math.PI / 3);
+                        int x1 = (int) (xc + radius * Math.cos(angle) + rg.nextInt(branchsize) - 10);
+                        int y1 = (int) (yc + radius * Math.sin(angle) + rg.nextInt(branchsize) - 10);
+                        //g2d.setColor(galaxy.getGalaxyColorPalette().get(rg.nextInt(4)));
+                        int size = rg.nextInt(5) + 1;
+                        //g2d.fillOval(x1, y1, size, size);
+                        g.addgstar(new Galaxy.gstar(x1, y1, col.get(rg.nextInt(4)), size)); 
+                        radius++;
+                    }
+                    radius = 0;
+                }
+
+            }
+            else if(branches == 4)
+            {
+                int branchsize = rg.nextInt(40) + 20;
+                int radius = 0;
+                g = new Galaxy(Variables.GalaxyType.SPIRAL, col, branches, branchsize);
+                for (int j = 0; j < 4; j++) {
+                    if(rg.nextInt() < 20)
+                        col = c.returnRandColorPalette();
+                    //galaxy.setGalaxyColorPalette(c.returnRandColorPalette());
+                    for (int i = 1; i <= 450; i++) {
+                        double angle = (i * Math.PI / 200) + (j * 2 * Math.PI / 4);
+                        int x1 = (int) (xc + radius * Math.cos(angle) + rg.nextInt(branchsize) - 10);
+                        int y1 = (int) (yc + radius * Math.sin(angle) + rg.nextInt(branchsize) - 10);
+                        //g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
+                        int size = rg.nextInt(5) + 1;
+                        //g2d.fillOval(x1, y1, size, size);
+                        g.addgstar(new Galaxy.gstar(x1, y1, col.get(rg.nextInt(4)), size)); 
+                        radius++;
+                    }
+                    radius = 0;
+                }
+
+            }
+            else
+            {
+                int branchsize = rg.nextInt(40) + 20;
+                int radius = 0;
+                g = new Galaxy(Variables.GalaxyType.SPIRAL, col, branches, branchsize);
+                for (int j = 0; j < 5; j++) {
+                    //galaxy.setGalaxyColorPalette(c.returnRandColorPalette());
+                    if(rg.nextInt() < 20)
+                        col = c.returnRandColorPalette();
+                    for (int i = 1; i <= 450; i++) {
+                        double angle = (i * Math.PI / 200) + (j * 2 * Math.PI / 5);
+                        int x1 = (int) (xc + radius * Math.cos(angle) + rg.nextInt(branchsize) - 10);
+                        int y1 = (int) (yc + radius * Math.sin(angle) + rg.nextInt(branchsize) - 10);
+                        //g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
+                        int size = rg.nextInt(5) + 1;
+                        //g2d.fillOval(x1, y1, size, size);
+                        
+                        g.addgstar(new Galaxy.gstar(x1, y1, col.get(rg.nextInt(4)), size)); 
+                        radius++;
+                    }
+                    radius = 0;
+                }
+
+            }
+
+            int count = 0;
+            while(count < 1000) //BORDER
+            {
+                int x = rg.nextInt(900);
+                int y = rg.nextInt(900);
+
+                //g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
+                if(Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) < 300)
+                {
+                    int size = rg.nextInt(3) + 1;
+                    //g2d.fillOval(x, y, size, size);
+                    g.addgstar(new Galaxy.gstar(x, y, Color.white, size)); 
+                    count++;
+                }
+
+            }
+
+            count = 0;
+            while(count < 10000) //DUST
+            {
+                int x = rg.nextInt(900);
+                int y = rg.nextInt(900);
+
+                //Color c = galaxy.getGalaxyColorPalette().get(r.nextInt(4));
+                //Color col = new Color(c.getRed(),c.getGreen(),c.getBlue(),50);
+                //g2d.setColor(col);
+                if(Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) < 450)
+                {
+                    //g2d.fillOval(x, y, 2, 2);
+                    g.addgstar(new Galaxy.gstar(x, y, Color.white, rg.nextInt(2) + 1)); 
+                    count++;
+                }
+            return g;
+        }
+        }
+        else if (n == 1) //LENTICULAR
+        {
+            ArrayList<Color> col = c.returnRandColorPalette();
+            g = new Galaxy(Variables.GalaxyType.LENTICULAR, col, 0, 0);
+            
+            int count = 0;
+            while (count < 1000) {
+                int x = rg.nextInt(900);
+                int y = rg.nextInt(900);
+                
+                if (Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) >= 375 && Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) <= 425) {
+                    
+                    g.addgstar(new gstar(x, y, col.get(rg.nextInt(4)), 2));
+                    count++;
+                }
+                
+            }
+            
+            if (rg.nextInt() < 10) {
+                count = 0;
+                while (count < 2000) {
+                    int x = rg.nextInt(900);
+                    int y = rg.nextInt(900);
+                    if (Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) <= 425) {
+                        g.addgstar(new gstar(x, y, Color.white, 2));
+                        count++;
+                    }
+                    
+                }
+            }
+            
+            if (rg.nextInt() < 20) {
+                count = 0;
+                while (count < 750) {
+                    int x = rg.nextInt(900);
+                    int y = rg.nextInt(900);
+                    
+                    if (Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) <= 200) {
+                        
+                        g.addgstar(new gstar(x, y, col.get(rg.nextInt(4)), 2));
+                        count++;
+                    }
+                    
+                }
+            }
+            
+            count = 0;
+            while (count < 250) {
+                int x = rg.nextInt(900);
+                int y = rg.nextInt(900);
+                
+                if (Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) <= 50) {
+                    g.addgstar(new gstar(x, y, col.get(rg.nextInt(4)), 2));
+                    count++;
+                }
+                
+            }
+            
+            int branchsize = rg.nextInt(40) + 20;
+            int radius = 0;
+            for (int j = 0; j < 3; j++) {
+                for (int i = 1; i <= 450; i++) {
+                    double angle = (i * Math.PI / 200) + (j * 2 * Math.PI / 3);
+                    int x1 = (int) (450 + radius * Math.cos(angle) + rg.nextInt(branchsize) - 10);
+                    int y1 = (int) (450 + radius * Math.sin(angle) + rg.nextInt(branchsize) - 10);
+                    int size = rg.nextInt(5) + 1;
+                    g.addgstar(new gstar(x1, y1, col.get(rg.nextInt(4)), size));
+                    radius++;
+                }
+                radius = 0;
+            }
+            
+            return g;
+        }
+         
+        return null;
+    }
+    
+    public Sector generateSector()
+    {
+        return new Sector(starGenerator(),constellationGenerator());
+    }
+    
     private char getRandomChar(String characters) {
         int index = r.nextInt(characters.length());
         return characters.charAt(index);

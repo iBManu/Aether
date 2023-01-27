@@ -4,8 +4,11 @@
  */
 package Controller;
 
+import Model.Bodies.Constellation;
+import Model.Bodies.Galaxy;
 import Model.Generator;
 import Model.Bodies.Planet;
+import Model.Bodies.Sector;
 import Model.Bodies.Star;
 import Model.Bodies.StarSystem;
 import Model.Variables;
@@ -51,25 +54,36 @@ public class StarController {
     private ConstantsDialog cdl;
     private boolean inserted = true;
     private Star lastStar;
+    private Galaxy galaxy;
+    private Sector sector;
+    private int column;
+    private int row;
+    private ArrayList<Star> stars;
+    private ArrayList<Constellation> constellations;
     
-    public StarController()
+    public StarController(Window w, GalaxyCanvas gcv, Sector sector)
     {
-        w = new Window();
-        w.setTitle("Aether");
-        w.setLocationRelativeTo(null);
-        w.setVisible(true);
-        
+        this.w = w;
         cv = new CanvasAether(w);
         scv = new StarSystemCanvas();
-        gcv = new GalaxyCanvas();
         cdl = new ConstantsDialog();
+        this.gcv = gcv;
+        this.sector = sector;
         
         sg = new Generator();
         
         w.CanvasContainer.setLayout(new GridLayout());
-        w.CanvasContainer.add(gcv);
+        w.CanvasContainer.add(cv);
         
         //gen();
+        
+        stars = sector.getStars();
+        constellations = sector.getConstellations();
+        
+        cv.drawStars(stars);
+        cv.drawConstellations(constellations);
+        
+        System.out.println("SECTOR: " + sector);
         
         listener();
     }
@@ -80,10 +94,10 @@ public class StarController {
             public void mousePressed(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                boolean found = false;
-                for (Star s : sg.getStars()) {
+                //boolean found = false;
+                for (Star s : stars) {
                     if (s.getX() <= x && x <= s.getX() + s.getSize() && s.getY() <= y && y <= s.getY() + s.getSize()) {
-                        found = true;
+                        //found = true;
                         if(lastStar != null && s != lastStar)
                         {
                             lastStar.setColor(Variables.DEFAULT_STAR_COLOR);
@@ -121,14 +135,22 @@ public class StarController {
                         break;
                     }        
                 }
-                if(found == false)
+                if(e.getButton() == MouseEvent.BUTTON3)
+                {
+                    for(Star s : stars)
+                        s.setColor(Variables.DEFAULT_STAR_COLOR);
+                    
+                    w.CanvasContainer.remove(cv);
+                    w.CanvasContainer.add(gcv);
+                }
+                /*if(found == false)
                     {
                         lastStar.setSelected(false);
                         lastStar.setColor(Variables.DEFAULT_STAR_COLOR);
                         lastStar = null;
                         w.console.setText("");
                         cv.update();
-                    }
+                    }*/
             }
         });
 
@@ -205,17 +227,6 @@ public class StarController {
             }
         });
         
-        w.regenerateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               /* w.CanvasContainer.remove(gcv);
-                Variables.setSEED((int) System.currentTimeMillis());
-                gcv = new GalaxyCanvas();
-                w.CanvasContainer.add(gcv);*/
-               gcv.update();
-            }
-        });
-        
         w.exportImgButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {  
@@ -237,18 +248,15 @@ public class StarController {
 
             }
         });
-    
-        gcv.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                int x = e.getX();
-                int y = e.getY();
-                int column = x / 180;
-                int row = y / 180;
-                gcv.selectGridPiece(column, row);
-            }
-});
 
+        w.goBackToGalaxyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {  
+                w.CanvasContainer.remove(cv);
+                w.CanvasContainer.remove(scv);
+                w.CanvasContainer.add(gcv);
+            }
+        });
         
         /*Variables.STAR_NUM = w.starCountSlider.getValue();
         w.starCountSlider.addChangeListener(new ChangeListener() {
@@ -287,8 +295,12 @@ public class StarController {
     
     public void gen()
     {
-        if(inserted == true)
-        {
+        //if(inserted == true)
+        //{
+            //System.out.println("row: " + row + " , column: " + column);
+            ArrayList<Star> stars = sector.getStars();
+            ArrayList<Constellation> constellations = sector.getConstellations();
+            //sector = new Sector(stars,constellations);
             cv.drawStars(sg.starGenerator());
             cv.drawConstellations(sg.constellationGenerator());
 
@@ -296,11 +308,24 @@ public class StarController {
 
             System.out.println("La probabilidad de que este cielo exista es de 1 entre " + prob + " otros cielos");
             inserted = false;
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "Error: can't regenerate with same constants as actual scenario, please consider changing costants", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        //}
+        //else
+        //{
+        //    JOptionPane.showMessageDialog(null, "Error: can't regenerate with same constants as actual scenario, please consider changing costants", "Error", JOptionPane.ERROR_MESSAGE);
+        //}
         
+    }
+
+    public void setSector(Sector sector) {
+        this.sector = sector;
+        
+        w.CanvasContainer.add(cv);
+        lastStar = null;
+        
+        this.stars = sector.getStars();
+        this.constellations = sector.getConstellations();
+        
+        cv.drawStars(sector.getStars());
+        cv.drawConstellations(sector.getConstellations());
     }
 }

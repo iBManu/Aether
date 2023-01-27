@@ -29,7 +29,11 @@ Alguien puede registrar un planeta como suyo, se almacenará esto en una base de
 
 --Hacer que del color de la galaxia dependan el porcentaje de probabilidad del color e las estrellas, por ejemplo, en una galaxia azul habra muchas azules y blancas, en una rosa, muchas rojas y blancas.
 
--Agregar agujeros negros y quasares, también estrellas de neutrones y magnetares, quizas novas etc.
+--Agregar agujeros negros y quasares, también estrellas de neutrones y magnetares, quizas novas etc.
+
+--El universo se genera con una semilla fija, pero se elige en la que apareces con una aleatoria de rango 0-115710, asi ademas cada una corresponde a una galaxia, por lo que puedes usarla para moverte entre ellas
 
 --ERRORES
 Al poner la semilla yo en el fichero si se genera siempre lo mismo, si la pongo con el programa no, algun problema hay ahi
+Colores siempre los mismos al meter semilla
+Colores cambian todo el rato al regenerar

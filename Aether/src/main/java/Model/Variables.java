@@ -5,12 +5,14 @@
 package Model;
 
 import java.awt.Color;
+import java.util.Random;
 
 /**
  *
  * @author Manu
  */
 public class Variables {
+    public static Random r = new Random(System.currentTimeMillis());
     public static int MAX_STAR_SIZE = 6;
     public static int MIN_STAR_SIZE = 2;
     public static int MAX_PATHS = 6;
@@ -24,7 +26,8 @@ public class Variables {
     public static int CANVAS_WIDTH = 900;
     public static Color DEFAULT_STAR_COLOR = Color.gray; //new Color(231, 246, 242);
     public static Color CONCENTRIC_CIRCLES_COLOR = new Color(44, 51, 51);
-    public static int SEED = (int) System.currentTimeMillis();//115710;
+    public static int SEED = 115710;//(int) System.currentTimeMillis();//115710//-301158681;
+    public static int GID = r.nextInt(115710) + 1;
     public static enum StarType {
         HYPERGIANT, 
         SUPERGIANT, 
@@ -43,7 +46,8 @@ public class Variables {
     public static enum GalaxyType {
         ELLIPTICAL, 
         SPIRAL, 
-        IRREGULAR  
+        IRREGULAR,
+        LENTICULAR
     }
 
     public static void setMAX_PATHS(int MAX_PATHS) {
@@ -76,5 +80,9 @@ public class Variables {
 
     public static void setSEED(int SEED) {
         Variables.SEED = SEED;
+    }
+
+    public static void setGID(int GID) {
+        Variables.GID = GID;
     }
 }

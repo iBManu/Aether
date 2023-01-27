@@ -17,9 +17,47 @@ public class Galaxy {
     private GalaxyType type;
     private ArrayList<Color> galaxyColorPalette;
     private int branches;
+    private int branchsize;
+    private ArrayList<gstar> gstars;
+    
+    public static class gstar
+    {
+        int x;
+        int y;
+        Color c;
+        int size;
 
-    public Galaxy(GalaxyType type) {
+        public gstar(int x, int y, Color c, int size) {
+            this.x = x;
+            this.y = y;
+            this.c = c;
+            this.size = size;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public int getY() {
+            return y;
+        }
+
+        public Color getC() {
+            return c;
+        }
+
+        public int getSize() {
+            return size;
+        }
+ 
+    }
+
+    public Galaxy(GalaxyType type, ArrayList<Color> galaxyColorPalette, int branches, int branchsize) {
         this.type = type;
+        this.galaxyColorPalette = galaxyColorPalette;
+        this.branches = branches; 
+        this.branchsize = branchsize;
+        gstars = new ArrayList<>();
     }
     
     public void setGalaxyGrid(int i, int j, Sector sector)
@@ -38,5 +76,31 @@ public class Galaxy {
 
     public ArrayList<Color> getGalaxyColorPalette() {
         return galaxyColorPalette;
+    }
+
+    public Sector[][] getGalaxyGrid() {
+        return galaxyGrid;
+    }
+
+    public GalaxyType getType() {
+        return type;
+    }
+
+    public int getBranches() {
+        return branches;
+    }
+
+    public int getBranchsize() {
+        return branchsize;
+    }
+    
+    public void addgstar(gstar g)
+    {
+        gstars.add(g);
+    }
+    
+    public ArrayList<gstar> getgstars()
+    {
+        return gstars;
     }
 }

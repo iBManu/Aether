@@ -5,6 +5,7 @@
 
 package App;
 
+import Controller.GalaxyController;
 import Controller.StarController;
 import View.Window;
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -26,6 +27,6 @@ public class Aether {
         } catch (UnsupportedLookAndFeelException ex) {
             Logger.getLogger(Aether.class.getName()).log(Level.SEVERE, null, ex);
         }
-        StarController s = new StarController();
+        GalaxyController g = new GalaxyController();
     }
 }
