@@ -19,6 +19,7 @@ public class Galaxy {
     private int branches;
     private int branchsize;
     private ArrayList<gstar> gstars;
+    private BlackHole centerBlackHole;
     
     public static class gstar
     {
@@ -102,5 +103,13 @@ public class Galaxy {
     public ArrayList<gstar> getgstars()
     {
         return gstars;
+    }
+
+    public BlackHole getCenterBlackHole() {
+        return centerBlackHole;
+    }
+
+    public void setCenterBlackHole(BlackHole centerBlackHole) {
+        this.centerBlackHole = centerBlackHole;
     }
 }

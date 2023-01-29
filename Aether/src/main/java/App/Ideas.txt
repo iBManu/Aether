@@ -37,3 +37,4 @@ Alguien puede registrar un planeta como suyo, se almacenará esto en una base de
 Al poner la semilla yo en el fichero si se genera siempre lo mismo, si la pongo con el programa no, algun problema hay ahi
 Colores siempre los mismos al meter semilla
 Colores cambian todo el rato al regenerar
+Siempre se generan las mismas estrellas independientemente de la galaxia, si genero otra sigue un orden, se podria solucionar haciendo que la semilla que genere la galaxia sea el id de la galaxia y no la semilla global

@@ -83,6 +83,14 @@ public class StarController {
         cv.drawStars(stars);
         cv.drawConstellations(constellations);
         
+        if(sector.getCenterBlackHole() != null)
+        {
+            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            cv.drawCenterBlackHole(sector.getCenterBlackHole());
+        }
+        else
+            cv.undrawCenterBlackHole();
+        
         System.out.println("SECTOR: " + sector);
         
         listener();
@@ -301,7 +309,7 @@ public class StarController {
             ArrayList<Star> stars = sector.getStars();
             ArrayList<Constellation> constellations = sector.getConstellations();
             //sector = new Sector(stars,constellations);
-            cv.drawStars(sg.starGenerator());
+            //cv.drawStars(sg.starGenerator());
             cv.drawConstellations(sg.constellationGenerator());
 
             BigInteger prob = new BigInteger(String.valueOf((long)(Math.pow(Variables.CANVAS_HEIGHT * Variables.CANVAS_WIDTH, Variables.STAR_NUM) * Math.pow(6, Variables.STAR_NUM))));
@@ -327,5 +335,6 @@ public class StarController {
         
         cv.drawStars(sector.getStars());
         cv.drawConstellations(sector.getConstellations());
+        cv.drawCenterBlackHole(sector.getCenterBlackHole());
     }
 }

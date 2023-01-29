@@ -41,14 +41,14 @@ public class Generator {
         StarSystems = new ArrayList<>();
     }
     
-    public ArrayList<Star> starGenerator()
+    public ArrayList<Star> starGenerator(float zone) //0.5 outside, 1 middle, 2 center
     {
         int sd = 0, rd = 0, wd = 0, g = 0, sg = 0, hg = 0;
         Stars = new ArrayList<>();
         
         int x, y;
         
-        for(int i = 0; i < Variables.STAR_NUM; i++)
+        for(int i = 0; i < Variables.STAR_NUM * zone; i++)
         {
             x = r.nextInt(899);
             y = r.nextInt(899);
@@ -109,7 +109,7 @@ public class Generator {
         
         int pathnum = r.nextInt(Variables.MAX_PATHS) + Variables.MIN_PATHS;
         
-        Star actual = Stars.get(r.nextInt(Variables.STAR_NUM));
+        Star actual = Stars.get(r.nextInt(Stars.size()));
         
         for(int i = 0; i < pathnum; i++)
         {
@@ -117,7 +117,7 @@ public class Generator {
             int j = 0;
             while(!find || Stars.size() == j)
             {
-                Star end = Stars.get(r.nextInt(Variables.STAR_NUM));
+                Star end = Stars.get(r.nextInt(Stars.size()));
                 double distance = Math.sqrt(Math.pow(end.getX() - actual.getX(), 2) + Math.pow(end.getY() - actual.getY(), 2));
                 if(distance <= Variables.MAX_DISTANCE)
                 {
@@ -366,6 +366,7 @@ public class Generator {
                 int radius = 0;
                 int branchsize = rg.nextInt(40) + 40;
                 g = new Galaxy(Variables.GalaxyType.SPIRAL, col, branches, branchsize);
+                col = c.returnRandColorPalette(); 
                 //galaxy.setGalaxyColorPalette(c.returnRandColorPalette());
                 for (int i = 1; i <= 450; i++) {
                     double angle = i * Math.PI / 200;
@@ -378,8 +379,7 @@ public class Generator {
                 }
 
                 radius = 0;
-                if(rg.nextInt() < 20)
-                    col = c.returnRandColorPalette();
+                col = c.returnRandColorPalette(); 
                     
                 for (int i = 1; i <= 450; i++) {
                     double angle = -i * Math.PI / 200;
@@ -398,7 +398,7 @@ public class Generator {
                 int radius = 0;
                 g = new Galaxy(Variables.GalaxyType.SPIRAL, col, branches, branchsize);
                 for (int j = 0; j < 3; j++) {
-                    //galaxy.setGalaxyColorPalette(c.returnRandColorPalette());
+                    col = c.returnRandColorPalette(); 
                     if(rg.nextInt() < 20)
                         col = c.returnRandColorPalette();
                     for (int i = 1; i <= 450; i++) {
@@ -423,7 +423,7 @@ public class Generator {
                 for (int j = 0; j < 4; j++) {
                     if(rg.nextInt() < 20)
                         col = c.returnRandColorPalette();
-                    //galaxy.setGalaxyColorPalette(c.returnRandColorPalette());
+                    col = c.returnRandColorPalette(); 
                     for (int i = 1; i <= 450; i++) {
                         double angle = (i * Math.PI / 200) + (j * 2 * Math.PI / 4);
                         int x1 = (int) (xc + radius * Math.cos(angle) + rg.nextInt(branchsize) - 10);
@@ -444,7 +444,7 @@ public class Generator {
                 int radius = 0;
                 g = new Galaxy(Variables.GalaxyType.SPIRAL, col, branches, branchsize);
                 for (int j = 0; j < 5; j++) {
-                    //galaxy.setGalaxyColorPalette(c.returnRandColorPalette());
+                    col = c.returnRandColorPalette(); 
                     if(rg.nextInt() < 20)
                         col = c.returnRandColorPalette();
                     for (int i = 1; i <= 450; i++) {
@@ -469,7 +469,7 @@ public class Generator {
                 int x = rg.nextInt(900);
                 int y = rg.nextInt(900);
 
-                //g2d.setColor(galaxy.getGalaxyColorPalette().get(r.nextInt(4)));
+                col = c.returnRandColorPalette(); 
                 if(Math.sqrt((x - 450) * (x - 450) + (y - 450) * (y - 450)) < 300)
                 {
                     int size = rg.nextInt(3) + 1;
@@ -486,6 +486,7 @@ public class Generator {
                 int x = rg.nextInt(900);
                 int y = rg.nextInt(900);
 
+                col = c.returnRandColorPalette(); 
                 //Color c = galaxy.getGalaxyColorPalette().get(r.nextInt(4));
                 //Color col = new Color(c.getRed(),c.getGreen(),c.getBlue(),50);
                 //g2d.setColor(col);
@@ -518,6 +519,7 @@ public class Generator {
             
             if (rg.nextInt() < 10) {
                 count = 0;
+                col = c.returnRandColorPalette(); 
                 while (count < 2000) {
                     int x = rg.nextInt(900);
                     int y = rg.nextInt(900);
@@ -531,6 +533,7 @@ public class Generator {
             
             if (rg.nextInt() < 20) {
                 count = 0;
+                col = c.returnRandColorPalette(); 
                 while (count < 750) {
                     int x = rg.nextInt(900);
                     int y = rg.nextInt(900);
@@ -545,6 +548,7 @@ public class Generator {
             }
             
             count = 0;
+            col = c.returnRandColorPalette(); 
             while (count < 250) {
                 int x = rg.nextInt(900);
                 int y = rg.nextInt(900);
@@ -559,6 +563,7 @@ public class Generator {
             int branchsize = rg.nextInt(40) + 20;
             int radius = 0;
             for (int j = 0; j < 3; j++) {
+                col = c.returnRandColorPalette(); 
                 for (int i = 1; i <= 450; i++) {
                     double angle = (i * Math.PI / 200) + (j * 2 * Math.PI / 3);
                     int x1 = (int) (450 + radius * Math.cos(angle) + rg.nextInt(branchsize) - 10);
@@ -576,9 +581,9 @@ public class Generator {
         return null;
     }
     
-    public Sector generateSector()
+    public Sector generateSector(float zone)
     {
-        return new Sector(starGenerator(),constellationGenerator());
+        return new Sector(starGenerator(zone),constellationGenerator());
     }
     
     private char getRandomChar(String characters) {

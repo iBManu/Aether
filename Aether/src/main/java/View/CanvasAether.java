@@ -4,6 +4,7 @@
  */
 package View;
 
+import Model.Bodies.BlackHole;
 import Model.Bodies.Constellation;
 import Model.Bodies.Path;
 import Model.Bodies.Star;
@@ -33,6 +34,7 @@ public class CanvasAether extends Canvas{
     private ArrayList<Constellation> Constellations;
     private Window w;
     Image img;
+    private BlackHole blackhole;
     
     public CanvasAether(Window w)
     {
@@ -50,7 +52,6 @@ public class CanvasAether extends Canvas{
     public void paint(Graphics g)
     {
         img = createImage(this.getWidth(), this.getHeight());
-        System.out.println("w: " + this.getWidth() + " , h: " + this.getHeight());
         Graphics og = img.getGraphics();
         Graphics2D g2d = (Graphics2D) og.create();
         
@@ -105,6 +106,14 @@ public class CanvasAether extends Canvas{
             }
         }
         
+        if(blackhole != null)
+        {
+            g2d.setColor(Variables.DEFAULT_STAR_COLOR);
+            g2d.fillOval(430, 430, 40, 40);
+            g2d.setColor(Color.black);
+            g2d.fillOval(432, 432, 36, 36);
+        }
+        
         g2d.dispose();
         g.drawImage(img, 0, 0, null);
     }
@@ -119,6 +128,16 @@ public class CanvasAether extends Canvas{
     {
         this.Constellations = Constellations;
         update();
+    }
+    
+    public void drawCenterBlackHole(BlackHole blackhole)
+    {
+        this.blackhole = blackhole;
+    }
+    
+    public void undrawCenterBlackHole()
+    {
+        this.blackhole = null;
     }
     
     /*public Star findStar(ArrayList<Star> stars, int x, int y) {

@@ -14,6 +14,7 @@ public class Sector {
     private ArrayList<Star> stars;
     private ArrayList<StarSystem> starSystems;
     private ArrayList<Constellation> constellations;
+    private BlackHole centerBlackHole;
 
     public Sector(ArrayList<Star> stars, ArrayList<Constellation> constellations) {
         this.stars = stars;
@@ -32,5 +33,13 @@ public class Sector {
 
     public ArrayList<Constellation> getConstellations() {
         return constellations;
+    }
+
+    public void setCenterBlackHole(BlackHole centerBlackHole) {
+        this.centerBlackHole = centerBlackHole;
+    }
+
+    public BlackHole getCenterBlackHole() {
+        return centerBlackHole;
     }
 }

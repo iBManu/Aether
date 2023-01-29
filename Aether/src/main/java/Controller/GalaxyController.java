@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Model.Bodies.BlackHole;
 import Model.Bodies.Galaxy;
 import Model.Bodies.Sector;
 import Model.Bodies.Star;
@@ -25,6 +26,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -163,6 +165,7 @@ public class GalaxyController {
                     galaxy = sg.generateGalaxy();
                     gcv.setGalaxy(galaxy);
                     gcv.update();
+                    gen();
                 }
             }
         });
@@ -179,10 +182,12 @@ public class GalaxyController {
                 
                 if(column == gcv.getSelectedColumn() && row == gcv.getSelectedRow())
                 {
+                    System.out.println("row: " + row + " , col: " + column);
                     gcv.selectGridPiece(5, 5); //CLEARS
                     w.CanvasContainer.remove(gcv);
                     if(s == null)
                     {
+                        System.out.println("sectorsito: " + galaxy.getGalaxySector(row, column));
                         s = new StarController(w, gcv,galaxy.getGalaxySector(row, column));
                     }
                         
@@ -205,10 +210,22 @@ public class GalaxyController {
         {
             for(int j = 0; j < 5; j++)
             {
-                galaxy.setGalaxyGrid(i, j, sg.generateSector());
+                if(i == 2 && j == 2)
+                {
+                    galaxy.setGalaxyGrid(i, j, sg.generateSector(2));
+                    BigDecimal min = new BigDecimal("1000000");
+                    BigDecimal max = new BigDecimal("70000000000");
+                    BigDecimal mass = min.add(new BigDecimal(Math.random()).multiply(max.subtract(min)));
+
+                    galaxy.setCenterBlackHole(new BlackHole(mass,0,0));
+                    galaxy.getGalaxySector(i, j).setCenterBlackHole(galaxy.getCenterBlackHole());
+                }
+                else if((i != 0 && j != 0) && (i != 4 && j != 4))
+                    galaxy.setGalaxyGrid(i, j, sg.generateSector(1)); 
+                else
+                    galaxy.setGalaxyGrid(i, j, sg.generateSector(0.5f)); 
             }
         }
-        System.out.println("e iguá?: " + (galaxy.getGalaxySector(0, 0) == galaxy.getGalaxySector(0, 1)));
     }
     
     private void setConsole()
