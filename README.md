@@ -18,7 +18,7 @@ The Aether development process is currently paused but in the future I would lik
 
 ### Usage
 
-Download the project and open it with NetBeans IDE, the execute it.
+Download the project and open it with NetBeans IDE, then execute it.
 
 The first you will see when you open the program will be a random galaxy.
 
