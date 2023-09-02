@@ -20,6 +20,8 @@ The Aether development process is currently paused but in the future I would lik
 
 Download the project and open it with NetBeans IDE, the execute it.
 
+The first you will see when you open the program will be a random galaxy.
+
 The galaxy is separated in many sectors, left click them to enter, now stars shouls appear in your screen, you can left click any star and you will enter that star system. Right clicking in any screen will take you to the previous screen.
 
 There is a `Regenerate` button that basically moves you to another galaxy, the rest of the buttons do what they say they do, but i cannot ensure you that they will work as i have not really worked much on them.
@@ -42,6 +44,8 @@ Actualmente el programa se puede usar pero tiene algunos bugs con la aletoriedad
 El proceso de desarrollo de Aether actualmente está pausado pero en un futuro me gustaría continuar con él y acabarlo para sacarlo al público.
 
 ### Uso
+
+Descarga el proyecto y abrelo con el IDE de NetBeans. después ejecutalo.
 
 Lo primero que verás al abrir el programa será una galaxia aleatoria
 
