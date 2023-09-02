@@ -40,7 +40,7 @@ Surgió por el interés que siento hacia el universo y las grandes posibilidades
 
 Es un proyecto que empecé como entretenimiento en mis pausas de estudiar durante el tercer año de mi carrera de ingeniería informatica.
 
-Actualmente el programa se puede usar pero tiene algunos bugs con la aletoriedad y las semillas y aún le faltan bastantes cosas que me gustaría añadirles cuando tenga tiempo al acabar otros proyectos.
+Actualmente el programa se puede usar pero tiene algunos bugs con la aletoriedad y las semillas y aún le faltan bastantes cosas que me gustaría añadirle cuando tenga tiempo al acabar otros proyectos.
 
 El proceso de desarrollo de **Aether** actualmente está pausado pero en un futuro me gustaría continuar con él y acabarlo para sacarlo al público.
 
