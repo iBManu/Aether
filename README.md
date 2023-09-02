@@ -12,9 +12,9 @@ It arose from the interest I feel towards the universe and the great possibiliti
 
 It is a project that I started as entertainment during my study breaks in the third year of my computer engineering degree.
 
-Currently the program can be used but it has some bugs with randomness and seeds and it is still missing quite a few things that I would like to add when I have time to finish other projects.
+Currently the program can be used but it has some bugs with randomness and seeds and it is still missing quite a few things that I would like to add when I have time after finishing other projects.
 
-The Aether development process is currently paused but in the future I would like to continue with it and finish it to release it to the public.
+The Aether development process is currently paused but in the future I would like to continue and finish it to release it to the public.
 
 ### Usage
 
