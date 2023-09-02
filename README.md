@@ -53,6 +53,6 @@ La galaxia está separada en muchos sectores, haz clic izquierdo en cualquiera d
 
 Hay un botón `Regenerate` que básicamente te lleva a otra galaxia aleatoria, el resto de los botones hacen lo que dicen, pero no puedo asegurarte que funcionarán porque no he trabajado mucho en ellos.
 
-También hay una consola donde se mostrará información interesante de la galaxia, sistemas y planetas, como su `tipo`, `masa`, `gravedad` etc, aunque algunos valores se calculan mal.
+También hay una consola donde se mostrará información interesante de la galaxia, sistemas y planetas, como su `tipo`, `masa`, `gravedad` etc., aunque algunos valores se calculan mal.
 
 ---
