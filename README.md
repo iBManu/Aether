@@ -10,7 +10,7 @@
 
 It arose from the interest I feel towards the universe and the great possibilities that procedural generation offers.
 
-It is a project that I started as entertainment during my study breaks in the second year of my computer engineering degree.
+It is a project that I started as entertainment during my study breaks in the third year of my computer engineering degree.
 
 Currently the program can be used but it has some bugs with randomness and seeds and it is still missing quite a few things that I would like to add when I have time to finish other projects.
 
@@ -37,11 +37,11 @@ Also there is a console, where interesting info of the galaxy, systems and plane
 
 Surgió por el interés que siento hacia el universo y las grandes posibilidades que ofrece la generación procedural.
 
-Es un proyecto que empecé como entretenimiento en mis pausas de estudiar durante el segundo año de mi carrera de ingeniería informatica.
+Es un proyecto que empecé como entretenimiento en mis pausas de estudiar durante el tercer año de mi carrera de ingeniería informatica.
 
 Actualmente el programa se puede usar pero tiene algunos bugs con la aletoriedad y las semillas y aún le faltan bastantes cosas que me gustaría añadirles cuando tenga tiempo al acabar otros proyectos.
 
-El proceso de desarrollo de Aether actualmente está pausado pero en un futuro me gustaría continuar con él y acabarlo para sacarlo al público.
+El proceso de desarrollo de **Aether** actualmente está pausado pero en un futuro me gustaría continuar con él y acabarlo para sacarlo al público.
 
 ### Uso
 
