@@ -1,7 +1,8 @@
 # Aether
-![g](https://github.com/iBManu/Aether/assets/70716864/6b65753a-3acb-4176-a3fa-fee9689b0587)
-![Foto](https://github.com/iBManu/Aether/assets/70716864/1c74f2ad-6d51-435c-aecf-bff8908c8d0e)
-![ps](https://github.com/iBManu/Aether/assets/70716864/db559450-957e-4af8-9817-7502aa19255b)
+![Galaxy](https://github.com/iBManu/Aether/assets/70716864/ca79ea8d-5ee2-46d5-a0c6-6460fd4f547a)
+![StarChart](https://github.com/iBManu/Aether/assets/70716864/27bdf6cf-5b5c-4a86-bea7-20b4dafd4d65)
+![StarSystem](https://github.com/iBManu/Aether/assets/70716864/22ea2020-a220-4610-ae30-01e890e6383b)
+
 
 ## EN | English
 ### What is Aether?
