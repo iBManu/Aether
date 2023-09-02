@@ -1,6 +1,6 @@
 # Aether
 ![g](https://github.com/iBManu/Aether/assets/70716864/6b65753a-3acb-4176-a3fa-fee9689b0587)
-![g](https://github.com/iBManu/Aether/assets/70716864/bcdd5325-4d2f-4a72-8577-f286a3a009f0)
+![Foto](https://github.com/iBManu/Aether/assets/70716864/1c74f2ad-6d51-435c-aecf-bff8908c8d0e)
 ![ps](https://github.com/iBManu/Aether/assets/70716864/db559450-957e-4af8-9817-7502aa19255b)
 
 ## EN | English
