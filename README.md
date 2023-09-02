@@ -6,7 +6,7 @@
 ## EN | English
 ### What is Aether?
 
-**Aether** is a program that simulates galaxies, systems, constellations and star systems in a procedural way.
+**Aether** is a program that simulates galaxies, star charts with constellations and star systems with planets in a procedural way.
 
 It arose from the interest I feel towards the universe and the great possibilities that procedural generation offers.
 
@@ -33,7 +33,7 @@ Also there is a console, where interesting info of the galaxy, systems and plane
 ## ES | Español
 ### ¿Qué es Aether?
 
-**Aether** es un programa que simula galaxias, sistemas, constelaciones y sistemas estelares de forma procedural.
+**Aether** es un programa que simula galaxias, cartas estelares con constelaciones y sistemas estelares con planetas de forma procedural.
 
 Surgió por el interés que siento hacia el universo y las grandes posibilidades que ofrece la generación procedural.
 
